@@ -1,57 +1,56 @@
     var wins = 1;
     var losses = 1;
     var guessesLeft = 10;
-
-
     var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
     var allUserGuess = [];
 
     document.onkeyup = function(event) {
         var userGuess = event.key;
-
         var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-        
-        document.getElementById("allUserGuess").innerHTML = allUserGuess;
-        document.getElementById("computerGuess").innerHTML = computerGuess;
-        document.getElementById("guessesLeft").innerHTML = guessesLeft;
 
-        if (guessesLeft > 0) {
-        guessesLeft--;
-         } else if (guessesLeft == 0) {
-            guessesLeft = guessesLeft + 10;
-         }
+        document.getElementById("allUserGuess").innerHTML = userGuess + "," + allUserGuess;
 
+        // For me.
+        console.clear(computerGuess);
+        console.log(computerGuess);
+
+        // Limits user picks to computerChoices array values.
         if (computerChoices.indexOf(userGuess) !== -1) {
-            allUserGuess.push(" " + userGuess);
-            document.getElementById("response").innerHTML = "Not Valid Entry. Try Again."
+            //add next userGuess to front of array
+            allUserGuess.unshift(" " + userGuess);
 
+            // Guesses Left Countdown.
+            if (guessesLeft > 0) {
+                guessesLeft--;
+                document.getElementById("guessesLeft").innerHTML = guessesLeft;
 
+            } else if (guessesLeft < 1) {
+                allUserGuess = [];
+                document.getElementById("allUserGuess").innerHTML = allUserGuess;
+                guessesLeft = guessesLeft + 10;
+                document.getElementById("guessesLeft").innerHTML = guessesLeft;
+
+            }
+
+            // Wins.
             if (userGuess === computerGuess) {
-
                 document.getElementById("wins").innerHTML = wins;
-                document.getElementById("response").innerHTML = "You Win! Press Any Key to Play Again!"
+                document.getElementById("response").innerHTML = "You Win! Press Any Key To Keep Playing!"
                 wins++;
                 guessesLeft = guessesLeft + (10 - guessesLeft);
-
+                allUserGuess = [];
 
             } else {
-
                 document.getElementById("response").innerHTML = "Try Again.";
 
             }
 
-
-            if ((guessesLeft === 0) && (userGuess !== computerGuess)) {
+            // Losses.
+            if ((guessesLeft < 1) && (userGuess !== computerGuess)) {
                 document.getElementById("losses").innerHTML = losses;
-                document.getElementById("response").innerHTML = "You Lose!  Press Any Key to Play Again";
+                document.getElementById("response").innerHTML = "You Lose! Press Any Key To Play Again!";
                 losses++;
 
             }
-
-
-
         }
-
-
     }
