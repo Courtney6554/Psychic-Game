@@ -16,6 +16,7 @@
 
         // Limits user picks to computerChoices array values.
         if (computerChoices.indexOf(userGuess) !== -1) {
+            
             //add next userGuess to front of array
             allUserGuess.unshift(" " + userGuess);
 
@@ -34,11 +35,11 @@
 
             // Wins.
             if (userGuess === computerGuess) {
+                allUserGuess = [];
                 document.getElementById("wins").innerHTML = wins;
+                guessesLeft = guessesLeft + (10 - guessesLeft);
                 document.getElementById("response").innerHTML = "You Win! Press Any Key To Keep Playing!"
                 wins++;
-                guessesLeft = guessesLeft + (10 - guessesLeft);
-                allUserGuess = [];
 
             } else {
                 document.getElementById("response").innerHTML = "Try Again.";
@@ -48,7 +49,7 @@
             // Losses.
             if ((guessesLeft < 1) && (userGuess !== computerGuess)) {
                 document.getElementById("losses").innerHTML = losses;
-                document.getElementById("response").innerHTML = "You Lose! Press Any Key To Play Again!";
+                document.getElementById("response").innerHTML = "You Lose! Press Any Letter To Play Again!";
                 losses++;
 
             }
